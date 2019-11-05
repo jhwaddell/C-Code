@@ -1,0 +1,31 @@
+        public Form1()
+        {
+            InitializeComponent();
+            label3.Text = "Connection Closed  !";
+            XmlTextReader xtr = new XmlTextReader("C:\\Users\\Public\\TestFolder\\Program.xml");
+
+            while (xtr.Read())
+            {
+                if (xtr.NodeType == XmlNodeType.Element && xtr.Name == "Server")
+                {
+                    s1 = xtr.ReadElementContentAsString();
+                   //Console.WriteLine("Name =" + s1);
+                    label1.Text = "Server: " + s1;
+                }
+                if (xtr.NodeType == XmlNodeType.Element && xtr.Name == "DBName")
+                {
+                    s2 = xtr.ReadElementContentAsString();
+                   // Console.WriteLine("Class =" + s2);
+                    label2.Text = "DataBase: " + s2;
+                }
+
+
+            }
+            string connetionString;
+            //SqlConnection cnn;
+            connetionString = @"Data Source=" + s1 + ";Initial Catalog=" + s2 + ";User ID=Advanced;Password=PATSINCOMMAND";
+            cnn = new SqlConnection(connetionString);
+            //string qry = "select * from ADVANCED.mef304 where C_REMOTETYPE not in ('50W-2', '', '40GB', '40GN', '41ER', '45ER', '50W', '50w-1', '51ESS', '52ESS', 'M2', 'INNOV-8', '60W', 'OC')";
+            cnn.Open();
+            label3.Text = "Connection Open  !";
+        }
